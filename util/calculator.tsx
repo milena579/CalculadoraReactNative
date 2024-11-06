@@ -2,9 +2,9 @@ export const initialState = {
     currentValue: "0",
     operator: null,
     previousValue: null
-  };
+};
   
-  export const handleNumber = (value, state) => {
+  export const handleNumber = (value: any, state: { currentValue: string; }) => {
     if (state.currentValue === "0") {
       return { currentValue: `${value}` };
     }
@@ -14,7 +14,8 @@ export const initialState = {
     };
   };
   
-  export const handleEqual = state => {
+  export const handleEqual = (state: { currentValue: any; previousValue: any; operator: any; }) => {
+
     const { currentValue, previousValue, operator } = state;
   
     const current = parseFloat(currentValue);
@@ -55,7 +56,7 @@ export const initialState = {
     return state;
   };
   
-  const calculator = (type, value, state) => {
+  const calculator = (type: any, value: any, state: { currentValue: string; }) => {
     switch (type) {
       case "number":
         return handleNumber(value, state);
