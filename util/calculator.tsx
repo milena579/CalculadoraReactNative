@@ -1,8 +1,4 @@
-export const initialState = {
-    currentValue: "0",
-    operator: null,
-    previousValue: null
-};
+export const initialState = { current: "", previous: "", operator: "" };
   
   export const handleNumber = (value: any, state: { currentValue: string; }) => {
     if (state.currentValue === "0") {
@@ -13,75 +9,26 @@ export const initialState = {
       currentValue: `${state.currentValue}${value}`
     };
   };
-  
-  export const handleEqual = (state: { currentValue: any; previousValue: any; operator: any; }) => {
 
-    const { currentValue, previousValue, operator } = state;
+// Exemplo de utilitário calculator.ts
+
+export const calculator = (previous: string, current: string, operator: string) => {
+  const prev = parseFloat(previous);
+  const curr = parseFloat(current);
+
+  switch (operator) {
+    case "+":
+      return prev + curr;
+    case "-":
+      return prev - curr;
+    case "*":
+      return prev * curr;
+    case "/":
+      return prev / curr;
+    default:
+      return curr;
+  }
+};
   
-    const current = parseFloat(currentValue);
-    const previous = parseFloat(previousValue);
-    const resetState = {
-      operator: null,
-      previousValue: null
-    };
-  
-    if (operator === "/") {
-      return {
-        currentValue: previous / current,
-        ...resetState
-      };
-    }
-  
-    if (operator === "*") {
-      return {
-        currentValue: previous * current,
-        ...resetState
-      };
-    }
-  
-    if (operator === "+") {
-      return {
-        currentValue: previous + current,
-        ...resetState
-      };
-    }
-  
-    if (operator === "-") {
-      return {
-        currentValue: previous - current,
-        ...resetState
-      };
-    }
-  
-    return state;
-  };
-  
-  const calculator = (type: any, value: any, state: { currentValue: string; }) => {
-    switch (type) {
-      case "number":
-        return handleNumber(value, state);
-      case "operator":
-        return {
-          operator: value,
-          previousValue: state.currentValue,
-          currentValue: "0"
-        };
-      case "equal":
-        return handleEqual(state);
-      case "clear":
-        return initialState;
-      case "posneg":
-        return {
-          currentValue: `${parseFloat(state.currentValue) * -1}`
-        };
-      case "percentage":
-        return {
-          currentValue: `${parseFloat(state.currentValue) * 0.01}`
-        };
-      default:
-        return state;
-    }
-  };
-  
-  export default calculator;
+export default calculator;
   
